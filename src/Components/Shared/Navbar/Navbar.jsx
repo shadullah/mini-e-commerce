@@ -1,5 +1,6 @@
 // import Link from "next/link";
 import { useState } from "react";
+import { BiCart } from "react-icons/bi";
 import { Link } from "react-router";
 
 const Navbar = () => {
@@ -29,10 +30,16 @@ const Navbar = () => {
           </Link>
         </div>
         <div>
-          <ul className="flex space-x-4 text-lg">
+          <ul className="flex items-center space-x-4 text-lg">
+            <Link to="/carts">
+              <li>
+                <BiCart className="text-2xl" />
+              </li>
+            </Link>
             <Link to="/products">
               <li>Products</li>
             </Link>
+
             {id ? (
               <>
                 <Link href="/products/add">
