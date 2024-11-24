@@ -29,7 +29,10 @@ const Navbar = () => {
           </Link>
         </div>
         <div>
-          <ul className="flex space-x-4">
+          <ul className="flex space-x-4 text-lg">
+            <Link to="/products">
+              <li>Products</li>
+            </Link>
             {id ? (
               <>
                 <Link href="/products/add">
