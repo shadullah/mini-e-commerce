@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 // import { BiSearchAlt2 } from "react-icons/bi";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const Products = ({ limit }) => {
   const [products, setProducts] = useState([]);

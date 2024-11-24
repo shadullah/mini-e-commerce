@@ -3,23 +3,24 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const [error] = useState("");
+  const navigate = useNavigate();
 
   const login = async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
-      const res = await axios.post("http://127.0.0.1:8000/users/v1/login/", {
+      const res = await axios.post("http://127.0.0.1:8000/users/login/", {
         username: data.username,
         password: data.password,
       });
       localStorage.setItem("id", res.data.user.id);
-      localStorage.setItem("token", res.data.refresh);
-      localStorage.setItem("accToken", res.data.access);
-      window.location.href = "/";
+      localStorage.setItem("token", res.data.refreshToken);
+      localStorage.setItem("accToken", res.data.accessToken);
+      navigate("/");
       console.log("Logged in", res.data);
       toast.success("logged in", { duration: 3000 });
     } catch (error) {

@@ -1,24 +1,26 @@
 // import Link from "next/link";
-import { useState } from "react";
-import { BiCart } from "react-icons/bi";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { BiCart, BiLogOut, BiUser } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [id, setUserId] = useState(null);
 
-  //   useEffect(() => {
-  //     if (typeof window !== "undefined") {
-  //       const userId = localStorage.getItem("id");
-  //       setUserId(userId);
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userId = localStorage.getItem("id");
+      setUserId(userId);
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("id");
     localStorage.removeItem("token");
     localStorage.removeItem("accToken");
     setUserId(null);
-    window.location.href = "/authenticate/login";
+    toast.success("logout successfull", { duration: 3000 });
+    // window.location.href = "/login";
   };
 
   return (
@@ -42,16 +44,17 @@ const Navbar = () => {
 
             {id ? (
               <>
-                <Link href="/products/add">
-                  <li>Add Product</li>
-                </Link>
-                <li>
+                <li className="flex items-center">
+                  <BiLogOut className="mr-1" />
                   <button onClick={handleLogout}>Logout</button>
                 </li>
               </>
             ) : (
               <>
-                <Link to="/login">
+                <Link className="flex items-center" to="/login">
+                  <span className="mr-1">
+                    <BiUser />
+                  </span>
                   <li>Login</li>
                 </Link>
               </>

@@ -1,21 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoad] = useState(true);
-
-  //   const [data, setData] = useState(null);
-
-  //   useEffect(() => {
-  //     const storedData = localStorage.getItem("id");
-  //     if (storedData) {
-  //       setData(storedData);
-  //       console.log(storedData);
-  //     }
-  //   }, []);
 
   useEffect(() => {
     const fetchDetails = async () => {

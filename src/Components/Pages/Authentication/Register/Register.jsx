@@ -3,10 +3,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  //   const router = useRouter();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,11 +19,11 @@ const Register = () => {
   const password = watch("password");
 
   const create = async (data) => {
-    console.log(data);
+    // console.log(data);
     setErr("");
     try {
       const userReg = await axios.post(
-        "http://127.0.0.1:8000/users/v1/register/",
+        "http://127.0.0.1:8000/users/register/",
         {
           username: data.username,
           first_name: data.first_name,
@@ -35,8 +35,9 @@ const Register = () => {
       );
       console.log("Registration successfull", userReg.data);
       //   router.push("/");
-      window.location.href = "/authenticate/login";
-      toast.success("registration done", { duration: 3000 });
+      // window.location.href = "/login";
+      navigate("/login");
+      toast.success("registration complete, Login now!!", { duration: 3000 });
       reset();
     } catch (error) {
       console.log(error);
