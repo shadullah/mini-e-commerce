@@ -71,7 +71,7 @@ const Products = ({ limit }) => {
                           <p>$ {prod?.price}</p>
                         </div>
                         <div>
-                          <Link to={`products/${prod?.id}`}>
+                          <Link to={`/products/${prod?.id}`}>
                             <button className="px-4 py-3 rounded-lg bg-orange-500">
                               Details
                             </button>
