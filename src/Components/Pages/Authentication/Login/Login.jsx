@@ -3,23 +3,29 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
+// import { useAuth } from "../../../../contexts/AuthContext/AuthContext";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const [error] = useState("");
   const navigate = useNavigate();
+  // const { login } = useAuth();
+  const { loginMain } = useOutletContext();
 
-  const login = async (data) => {
+  const handleLogin = async (data) => {
     // console.log(data);
     try {
-      const res = await axios.post("http://127.0.0.1:8000/users/login/", {
+      const res = await axios.post("http://127.0.0.1:8000/api/users/login/", {
         username: data.username,
         password: data.password,
       });
-      localStorage.setItem("id", res.data.user.id);
-      localStorage.setItem("token", res.data.refreshToken);
-      localStorage.setItem("accToken", res.data.accessToken);
+      const userData = {
+        id: res.data.user.id,
+        refreshToken: res.data.refreshToken,
+        accessToken: res.data.accessToken,
+      };
+      loginMain(userData);
       navigate("/");
       console.log("Logged in", res.data);
       toast.success("logged in", { duration: 3000 });
@@ -52,7 +58,7 @@ const Login = () => {
             </Link>
           </p>
           {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-          <form onSubmit={handleSubmit(login)} className="mt-8">
+          <form onSubmit={handleSubmit(handleLogin)} className="mt-8">
             <div className="space-y-5">
               <Input
                 label="Username: "

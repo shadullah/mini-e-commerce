@@ -1,24 +1,14 @@
-// import Link from "next/link";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BiCart, BiLogOut, BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
+// import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 
-const Navbar = () => {
-  const [id, setUserId] = useState(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userId = localStorage.getItem("id");
-      setUserId(userId);
-    }
-  }, []);
+const Navbar = ({ user, logout }) => {
+  // const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("id");
-    localStorage.removeItem("token");
-    localStorage.removeItem("accToken");
-    setUserId(null);
+    // logout();
+    logout();
     toast.success("logout successfull", { duration: 3000 });
     // window.location.href = "/login";
   };
@@ -42,11 +32,14 @@ const Navbar = () => {
               <li>Products</li>
             </Link>
 
-            {id ? (
+            {user ? (
               <>
-                <li className="flex items-center">
-                  <BiLogOut className="mr-1" />
-                  <button onClick={handleLogout}>Logout</button>
+                <li>
+                  <button className="flex items-center" onClick={handleLogout}>
+                    {" "}
+                    <BiLogOut className="mr-1" />
+                    Logout
+                  </button>
                 </li>
               </>
             ) : (

@@ -23,7 +23,7 @@ const Register = () => {
     setErr("");
     try {
       const userReg = await axios.post(
-        "http://127.0.0.1:8000/users/register/",
+        "http://127.0.0.1:8000/api/users/register/",
         {
           username: data.username,
           first_name: data.first_name,
