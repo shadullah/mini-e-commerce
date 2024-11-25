@@ -21,7 +21,7 @@ function App() {
     localStorage.removeItem("id");
     localStorage.removeItem("token");
     localStorage.removeItem("accToken");
-    // setLen(0);
+    setLen(0);
   };
 
   return (

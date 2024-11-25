@@ -9,6 +9,7 @@ const ProductDetails = () => {
   const [loading, setLoad] = useState(true);
   const userId = localStorage.getItem("id");
   const navigate = useNavigate();
+  // const [exist, setExist] = useState();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -44,9 +45,14 @@ const ProductDetails = () => {
         }
       );
       navigate(`/carts`);
-      toast.success("Cart updated success", { duration: 3000 });
+      toast.success("Product added to cart successfully!!", { duration: 3000 });
     } catch (error) {
-      toast.error("Error caught", { duration: 3000 });
+      const errorMessage =
+        error.response?.data?.error || "an unexpected error occured";
+      toast.error(errorMessage, {
+        duration: 3000,
+      });
+      // toast.error(error);
       console.log(error);
     }
   };
