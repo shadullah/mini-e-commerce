@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoad] = useState(true);
+  const userId = localStorage.getItem("id");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -24,14 +26,30 @@ const ProductDetails = () => {
     fetchDetails();
   }, [id]);
 
-  // const add_to_cart = ()=>{
-  //   try {
-  //     const url = ;
-  //   } catch (error) {
-  //     toast.error("Error caught", {duration:3000})
-  //     console.log(error);
-  //   }
-  // }
+  const add_to_cart = async () => {
+    try {
+      await axios.post(
+        `http://127.0.0.1:8000/api/carts/user/${userId}/`,
+        {
+          customer_id: userId,
+          title: product.title,
+          quantity: 1,
+          price: product.price,
+          image: product.images[0],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accToken")}`,
+          },
+        }
+      );
+      navigate(`/carts`);
+      toast.success("Cart updated success", { duration: 3000 });
+    } catch (error) {
+      toast.error("Error caught", { duration: 3000 });
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -68,7 +86,10 @@ const ProductDetails = () => {
                   </div>
                   <p className="text-gray-600  my-6">{product?.description}</p>
                   <div className="text-center">
-                    <button className="w-1/4 bg-orange-500 rounded-md py-2 font-bold text-white">
+                    <button
+                      onClick={add_to_cart}
+                      className="w-1/4 bg-orange-500 rounded-md py-2 font-bold text-white"
+                    >
                       Add to Cart
                     </button>
                   </div>
