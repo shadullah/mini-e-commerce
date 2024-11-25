@@ -20,6 +20,11 @@ const Login = () => {
         username: data.username,
         password: data.password,
       });
+
+      if (!res.data?.user?.id) {
+        throw new Error("Login failed: User ID not found in response");
+      }
+
       const userData = {
         id: res.data.user.id,
         refreshToken: res.data.refreshToken,
@@ -30,6 +35,11 @@ const Login = () => {
       console.log("Logged in", res.data);
       toast.success("logged in", { duration: 3000 });
     } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "An unknown error occured during login";
+      toast.error(errorMessage, { duration: 3000 });
       console.log(error);
     }
   };
