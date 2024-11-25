@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cartId, setCartId] = useState("");
-  const router = useNavigate();
+  // const router = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -36,6 +36,7 @@ const Cart = () => {
         const cartData = res?.data.cart_items || "";
         const cartId = res?.data?.id;
         setCartId(cartId);
+        // console.log(cartId);
         console.log(cartData);
         setCarts(cartData);
       } catch (error) {
@@ -72,32 +73,35 @@ const Cart = () => {
 
   const ttl = Subtotal;
 
-  // const productId = carts.find(item=>)
-
   const handleCartUpdate = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accToken");
       if (!token) {
         toast.error("user not authenticated");
         return;
       }
 
-      await carts.map((item) => {
-        console.log(item);
-        axios.patch(
-          `/api/v1/carts/${cartId}`,
+      const id = localStorage.getItem("id");
+      console.log(carts);
+
+      await carts?.map((item) => {
+        axios.put(
+          `http://127.0.0.1:8000/api/carts/user/${id}/cartItems/${item.id}/`,
           {
-            productId: item.productId._id,
-            quantity: item?.quantity,
+            customer_id: id,
+            title: item.title,
+            quantity: item.quantity,
+            price: item.price,
+            image: item?.image,
           },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              Authorization: `Bearer ${localStorage.getItem("accToken")}`,
             },
           }
         );
       });
-      router.push(`/orders`);
+      // router.push(`/orders`);
       toast.success("Cart updated success");
     } catch (err) {
       console.log(err);
@@ -132,7 +136,7 @@ const Cart = () => {
   const [isLoggedIn, setIsLoggedin] = useState(false);
 
   useEffect(() => {
-    const user = localStorage.getItem("accessToken");
+    const user = localStorage.getItem("accToken");
     if (user) {
       setIsLoggedin(true);
     }
