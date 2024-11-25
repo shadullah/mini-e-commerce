@@ -7,6 +7,7 @@ import { useState } from "react";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [len, setLen] = useState(0);
 
   const loginMain = (userData) => {
     setUser(userData);
@@ -20,6 +21,7 @@ function App() {
     localStorage.removeItem("id");
     localStorage.removeItem("token");
     localStorage.removeItem("accToken");
+    // setLen(0);
   };
 
   return (
@@ -29,10 +31,10 @@ function App() {
           <div>
             <Toaster position="top-right" />
           </div>
-          <Navbar user={user} logout={logoutMain} />
+          <Navbar user={user} logout={logoutMain} len={len} />
 
           <main className="max-w-[1200px] mx-auto">
-            <Outlet context={{ loginMain }} />
+            <Outlet context={{ loginMain, setLen }} />
           </main>
           <Footer />
         </AuthProvider>

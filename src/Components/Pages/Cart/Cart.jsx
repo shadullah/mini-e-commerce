@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
+import { useOutletContext } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cartId, setCartId] = useState("");
-  // const router = useNavigate();
+  const { setLen } = useOutletContext();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -34,10 +34,8 @@ const Cart = () => {
         );
         console.log(res.data);
         const cartData = res?.data.cart_items || "";
-        const cartId = res?.data?.id;
-        setCartId(cartId);
-        // console.log(cartId);
         console.log(cartData);
+        setLen(cartData.length);
         setCarts(cartData);
       } catch (error) {
         toast.error("Failed to fetch cart items", { duration: 3000 });
@@ -47,7 +45,7 @@ const Cart = () => {
       }
     };
     fetchCart();
-  }, []);
+  }, [setLen]);
 
   const Subtotal = useMemo(() => {
     return carts.reduce((ttl, Item) => ttl + Item.price * Item.quantity, 0);

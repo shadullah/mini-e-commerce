@@ -3,7 +3,7 @@ import { BiCart, BiLogOut, BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
 // import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 
-const Navbar = ({ user, logout }) => {
+const Navbar = ({ user, logout, len }) => {
   // const { user, logout } = useAuth();
 
   const handleLogout = () => {
@@ -23,7 +23,10 @@ const Navbar = ({ user, logout }) => {
         <div>
           <ul className="flex items-center space-x-4 text-lg">
             <Link to="/carts">
-              <li>
+              <li className="flex items-center">
+                <span className="text-sm font-bold bg-gray-600 rounded-full px-1 py-1 text-white">
+                  {len}
+                </span>
                 <BiCart className="text-2xl" />
               </li>
             </Link>
