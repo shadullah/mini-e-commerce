@@ -1,8 +1,48 @@
-# React + Vite
+# Wellcrafters Mini(Beauty e-commercer app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Wellcrafters Mini is an e-commerce beauty website which is built using React, Javascript, Tailwind Css, React-icons, React-hook-form, react-hot-toast, react-router-dom, PostgreSQL ,React-icons, JWT, Django, Django-rest-framework and many more.
 
-Currently, two official plugins are available:
+## Backend github link
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Watch backend code demo here:
+
+```bash
+https://github.com/shadullah/mini-commerce-back
+```
+
+## Installation
+
+To install the necessary dependencies, run:
+
+```bash
+npm install
+```
+
+## Running the Project
+
+To run the project, use the following command:
+
+```bash
+npm run dev
+```
+
+## Features
+
+1. **Authentication:** Authentication and JWT used for accessToken & refreshToken.
+2. **CRUD on Carts:** Users can add to cart, remove from cart, Update cart information
+3. **REST API:** Product Api taken from dummyJson. Maintained REST structure.
+
+## Technologies Used
+
+- React,
+- Javascript,
+- Tailwind Css,
+- React-icons,
+- React-hook-form,
+- react-hot-toast,
+- react-router-dom,
+- PostgreSQL,
+- React-icons,
+- JWT,
+- Django,
+- Django-rest-framework
