@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
@@ -23,9 +24,18 @@ const ProductDetails = () => {
     fetchDetails();
   }, [id]);
 
+  // const add_to_cart = ()=>{
+  //   try {
+  //     const url = ;
+  //   } catch (error) {
+  //     toast.error("Error caught", {duration:3000})
+  //     console.log(error);
+  //   }
+  // }
+
   return (
     <div>
-      <h1 className="text-4xl text-center my-12">Details</h1>
+      <h1 className="text-4xl text-center my-8">Details</h1>
 
       <div>
         {loading ? (

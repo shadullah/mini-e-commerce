@@ -10,7 +10,6 @@ const Navbar = ({ user, logout }) => {
     // logout();
     logout();
     toast.success("logout successfull", { duration: 3000 });
-    // window.location.href = "/login";
   };
 
   return (
