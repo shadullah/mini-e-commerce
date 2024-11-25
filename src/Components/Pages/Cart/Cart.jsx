@@ -111,15 +111,16 @@ const Cart = () => {
       if (!id) {
         toast.error("User id not found");
       }
-      // const productId = carts.find(item=>item.productId)
-      // console.log(productId);
-      axios.delete(`/api/v1/carts/user/${id}/product/${productId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      axios.delete(
+        `http://127.0.0.1:8000/api/carts/user/${id}/cartItems/${productId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accToken")}`,
+          },
+        }
+      );
       setCarts((prevItems) =>
-        prevItems.filter((item) => item.productId._id !== productId)
+        prevItems.filter((item) => item.id !== productId)
       );
       toast.success("deleted successfully!!");
     } catch (error) {
@@ -139,7 +140,7 @@ const Cart = () => {
 
   return (
     <div>
-      <div className="main block md:flex justify-between">
+      <div className="main block md:flex justify-between mb-36">
         <div className="w-full">
           <h1 className="text-xl md:text-2xl font-medium my-4">
             Overview of your order
