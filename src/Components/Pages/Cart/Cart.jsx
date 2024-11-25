@@ -55,7 +55,7 @@ const Cart = () => {
   const handlePlus = (id) => {
     setCarts((prevItems) =>
       prevItems.map((item) =>
-        item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
@@ -63,7 +63,7 @@ const Cart = () => {
   const handleMinus = (id) => {
     setCarts((pre) =>
       pre.map((item) =>
-        item._id === id && item.quantity > 1
+        item.id === id && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
@@ -164,14 +164,14 @@ const Cart = () => {
                       {" "}
                       <p className="mt-3 space-x-2">
                         <span
-                          onClick={() => handleMinus(item._id)}
+                          onClick={() => handleMinus(item.id)}
                           className="text-sm font-extrabold bg-gray-400 px-2 py-1 rounded-md cursor-pointer"
                         >
                           -
                         </span>
                         <span className="text-lg">{item.quantity}</span>
                         <span
-                          onClick={() => handlePlus(item._id)}
+                          onClick={() => handlePlus(item.id)}
                           className="text-sm font-extrabold bg-gray-400 px-2 py-1 rounded-md cursor-pointer"
                         >
                           +
@@ -183,7 +183,7 @@ const Cart = () => {
                     <div>
                       <button
                         className="bg-gray-400 p-3 rounded-full"
-                        onClick={() => handleDelete(item.productId._id)}
+                        onClick={() => handleDelete(item.id)}
                       >
                         <IoMdClose />
                       </button>
